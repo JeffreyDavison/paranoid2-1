@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'paranoid2/version'
+require "paranoid2/version"
 
 Gem::Specification.new do |gem|
   gem.name          = "paranoid2"
@@ -18,8 +18,9 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency 'activerecord', '>= 4.1.0'
+  gem.add_dependency "activerecord", ">= 4.1.0"
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "sqlite3"
+  gem.add_development_dependency "byebug"
 end

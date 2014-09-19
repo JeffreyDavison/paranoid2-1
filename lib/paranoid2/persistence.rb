@@ -3,11 +3,25 @@ module Paranoid2
     extend ActiveSupport::Concern
 
     def destroy(opts = {})
-      with_paranoid(opts) { super() }
+      with_paranoid(opts) do
+        if paranoid_force
+          self.class.unscoped { super() }
+        else
+          touch(:deleted_at) if !deleted? && persisted?
+          super()
+        end
+      end
     end
 
     def destroy!(opts = {})
-      with_paranoid(opts) { super() }
+      with_paranoid(opts) do
+        if paranoid_force
+          self.class.unscoped { super() }
+        else
+          touch(:deleted_at) if !deleted? && persisted?
+          super()
+        end
+      end
     end
 
     def delete(opts = {})
