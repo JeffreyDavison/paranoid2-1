@@ -3,6 +3,7 @@ module Paranoid2
     extend ActiveSupport::Concern
 
     def destroy(opts = {})
+      run_callbacks :destroy do
       with_paranoid(opts) do
         if paranoid_force
           self.class.unscoped { super() }
@@ -12,8 +13,10 @@ module Paranoid2
         end
       end
     end
+    end
 
     def destroy!(opts = {})
+      run_callbacks :destroy do
       with_paranoid(opts) do
         if paranoid_force
           self.class.unscoped { super() }
@@ -22,6 +25,7 @@ module Paranoid2
           super()
         end
       end
+    end
     end
 
     def delete(opts = {})
